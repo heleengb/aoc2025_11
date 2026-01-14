@@ -1,12 +1,12 @@
 # Reto 11
 
-**Arquitectura, estilo MVC (Model-View-Controller) con Patrón Command:**
-El proyecto desacopla la estructura del grafo de la lógica de cálculo de rutas. En el paquete **model**, `ReactorNetwork` representa el grafo de conexiones y encapsula el algoritmo central de búsqueda (DFS con Memoización). En el paquete **view**, `ConsoleVisualizer` se encarga de mostrar los resultados. En **controller**, `NetworkController` orquesta el flujo: transforma el texto de entrada en un grafo de objetos y selecciona la estrategia de cálculo adecuada (ruta simple o con hitos).
+**Arquitectura, estilo MVC (Model-View-Controller) con paquete Command:**
+El proyecto desacopla la estructura del grafo de la lógica de cálculo de rutas. En el paquete **model**, `ReactorNetwork` representa el grafo de conexiones y encapsula el algoritmo central de búsqueda (DFS con Memoization). En el paquete **view**, `ConsoleVisualizer` se encarga de mostrar los resultados. En **controller**, `NetworkController` organiza el flujo: transforma el texto de entrada en un grafo de objetos y selecciona la estrategia de cálculo adecuada (ruta simple o con hitos).
 
 **Principios aplicados:**
-* **Responsabilidad Única (SRP):** Cada clase tiene un propósito acotado. `FileInputReader` maneja la I/O, `ReactorNetwork` solo sabe calcular rutas entre dos puntos dados, y los comandos (`DirectPathCalculation`, `WaypointPathCalculation`) definen *qué* tramos calcular y cómo combinarlos.
+* **Responsabilidad Única (SRP):** Cada clase tiene un propósito acotado. `FileInputReader` maneja la I/O, `ReactorNetwork` solo sabe calcular rutas entre dos puntos dados, y los comandos (`DirectPathCalculation`, `WaypointPathCalculation`) definen que tramos calcular y cómo combinarlos.
 * **Inversión de Dependencias (DIP):** El código depende de abstracciones. El uso de la interfaz `PathCommand` permite que el sistema ejecute diferentes tipos de cálculos de trayectoria sin acoplarse a una implementación concreta.
-* **Abierto-Cerrado (OCP):** El diseño es extensible. Si se requiere un nuevo tipo de ruta (ej. "Ruta que evite el nodo X"), basta con crear un nuevo record que implemente `PathCommand` sin tocar la lógica recursiva del modelo ni el controlador.
+* **Abierto-Cerrado (OCP):** El diseño es extensible. Si se requiere un nuevo tipo de ruta, basta con crear un nuevo record que lo implemente sin tocar la lógica recursiva del modelo ni el controlador.
 
 **Extras:**
 * **Patrón Command:** Encapsula las diferentes lógicas de negocio (Camino directo vs Camino con paradas intermedias).
